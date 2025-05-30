@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/prof.css" />
+
+    <title><%= title %></title>
+    <style>
+      .feature-box {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .feature-box:hover {
+        transform: translateY(-5px);
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body class="index-page layout">
+    <%- include('../partials/navbar.ejs') %>
+
+    <main class="main">
+      <div
+        class="container section mt-5"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div id="heading-container">
+          <h1 id="heading">Kasbiy rivojlanish</h1>
+        </div>
+        <div id="categories">
+          <div class="categories">Barchasi</div>
+          <div class="categories">Kreativlik lestiar</div>
+          <div class="categories">Ijodkorlik testlari</div>
+          <div class="categories">Pedogogik testlar</div>
+          <div class="categories">Situation testlar</div>
+        </div>
+        <section id="features-cards" class="features-cards section">
+          <div class="container">
+            <div class="row gy-4">
+              <div
+                class="col-xl-3 col-md-6"
+                data-aos="zoom-in"
+                data-aos-delay="100"
+              >
+                <a href="/test-solution?type=kreativlik" class="feature-box orange">
+                  <i class="bi bi-award"></i>
+                  <h4>Kreativlik</h4>
+                  <p>Kreativ fikirlash gobilyatini baholash</p>
+                </a>
+              </div>
+
+              <div
+                class="col-xl-3 col-md-6"
+                data-aos="zoom-in"
+                data-aos-delay="200"
+              >
+                <a href="/test-solution?type=noodatiy" class="feature-box blue">
+                  <i class="bi bi-patch-check"></i>
+                  <h4>Noodatiy fikirlash</h4>
+                  <p>
+                    Pedagogik jarayonga innavatsion yondashuvlarni tekshirish
+
+                  </p>
+                </a>
+              </div>
+
+              <div
+                class="col-xl-3 col-md-6"
+                data-aos="zoom-in"
+                data-aos-delay="300"
+              >
+                <a href="/test-solution?type=raqamli" class="feature-box green">
+                  <i class="bi bi-sunrise"></i>
+                  <h4>Raqamli pedagogika</h4>
+                  <p>
+                    Raqamli kompetensiyalarni baholash deb yozing
+                  </p>
+                </a>
+              </div>
+
+              <div
+                class="col-xl-3 col-md-6"
+                data-aos="zoom-in"
+                data-aos-delay="400"
+              >
+                <a href="/test-solution?type=situation" class="feature-box red">
+                  <i class="bi bi-shield-check"></i>
+                  <h4>Situation</h4>
+                  <p> Standart vaziyatlarga noyob yechimlar topish qobilyatini
+                    baholash</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <a
+      href="#"
+      id="scroll-top"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <%- include('../partials/footer.ejs') %>
+  </body>
+</html>

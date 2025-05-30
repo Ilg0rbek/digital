@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/prof.css" />
+    <title><%= title %></title>
+  </head>
+  <body class="index-page layout">
+    <%- include('../partials/navbar.ejs') %>
+
+    <main class="main">
+      <div
+        class="container mt-5 section"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div id="heading-container">
+          <h1 id="heading">Kasbiy rivojlanish</h1>
+        </div>
+        <div id="categories">
+          <div class="categories">Barchasi</div>
+          <div class="categories">Darsliklar</div>
+          <div class="categories">Video kontentlar</div>
+          <div class="categories">Foydali ma'lumotlar</div>
+          <div class="categories">Yangliklar</div>
+          <div class="categories">Ijodiy loyihalar</div>
+        </div>
+        <div id="main-conatiner-cards">
+          <div class="video-cards">
+            <img
+              src="https://edyoda.s3.amazonaws.com/media/blog-images/learn_machine_learning_courses_online.png"
+              alt="machine-learning"
+            />
+            <div class="card-content">
+              <h3>Introduction to a machine learning online course</h3>
+              <div class="author-date-conatiner">
+                <span id="author"><i>Yuklab olish</i></span>
+                <span> | </span>
+                <i class="bi bi-download"></i>
+              </div>
+              <p class="description">
+                If you are a fresh graduate - or new to IT - looking for the
+                next job, you need to read this.The last couple of years
+                zekeLabs gave me a unique opportunity to assess technology
+                demand in the industry and also to evaluate available talent
+                pool for the demand.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <a
+      href="#"
+      id="scroll-top"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <%- include('../partials/footer.ejs') %>
+  </body>
+</html>

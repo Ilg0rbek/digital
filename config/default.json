@@ -1,0 +1,5 @@
+{
+  "PORT": 8080,
+  "DB_URI": "mongodb+srv://ilgorbekabdumalikov331:1NojeCkqep7iP3M8@cluster0.tmuw6xj.mongodb.net",
+  "BASE_URI": "http://localhost:8080"
+}
