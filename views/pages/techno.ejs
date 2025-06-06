@@ -4,23 +4,155 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/techno.css" />
+    <link rel="stylesheet" href="css/digital.css" />
+
     <title><%= title %></title>
   </head>
   <body class="index-page layout">
     <%- include('../partials/navbar.ejs') %>
 
-    <main class="main">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        Texnologiya
+    <main class="main section">
+    <div class="container my-5 pt-3" >
+      <div id="heading-container">
+        <h1 id="heading" class="text-center my-4">Texnologiya</h1>
+      </div>
+      <div class="filter-tags">
+        <button class="filter-btn active">Barchasi</button>
+        <button class="filter-btn">Ta'lim metodlari</button>
+        <button class="filter-btn">Texnologiyalar</button>
+        <button class="filter-btn">Model va usullar</button>
+        <button class="filter-btn">Boshlang'ich sinf</button>
+      </div>
+    </div>
+      <div class="tech-container">
+        <div class="tech-grid">
+          <!-- Kreativ ta'lim metodlari -->
+          <div class="tech-card">
+            <div class="card-badge">Ta'lim metodlari</div>
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="creative-teaching">
+            </div>
+            <div class="card-content">
+              <h3>Kreativ ta'lim metodlari</h3>
+              <p class="description">
+                Zamonaviy ta'lim jarayonida kreativ metodlardan foydalanish o'quvchilarning ijodiy qobiliyatlarini rivojlantirishda muhim rol o'ynaydi.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="action-btn">
+                  <i class="bi bi-download"></i>
+                  <span>Yuklab olish</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEAM texnologiyasi -->
+          <div class="tech-card">
+            <div class="card-badge">Texnologiyalar</div>
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="steam-technology">
+            </div>
+            <div class="card-content">
+              <h3>STEAM texnologiyasi</h3>
+              <p class="description">
+                STEAM (Science, Technology, Engineering, Arts, Mathematics) - bu fanlararo integratsiyalangan ta'lim yondashuvi.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="action-btn">
+                  <i class="bi bi-download"></i>
+                  <span>Yuklab olish</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boshlang'ich sinflarda texnologiya darslari -->
+          <div class="tech-card">
+            <div class="card-badge">Boshlang'ich sinf</div>
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="primary-technology">
+            </div>
+            <div class="card-content">
+              <h3>Boshlang'ich sinflarda texnologiya darslari</h3>
+              <p class="description">
+                Boshlang'ich sinf o'quvchilari uchun texnologiya darslarini tashkil qilish va o'tkazishning zamonaviy usullari.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="action-btn">
+                  <i class="bi bi-download"></i>
+                  <span>Yuklab olish</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCAMPER -->
+          <div class="tech-card">
+            <div class="card-badge">Model va usullar</div>
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="scamper-method">
+            </div>
+            <div class="card-content">
+              <h3>SCAMPER metodologiyasi</h3>
+              <p class="description">
+                SCAMPER - bu ijodiy muammolarni hal qilish uchun ishlatiladigan tizimli yondashuv.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="action-btn">
+                  <i class="bi bi-download"></i>
+                  <span>Yuklab olish</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Brainstorming -->
+          <div class="tech-card">
+            <div class="card-badge">Ta'lim metodlari</div>
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="brainstorming">
+            </div>
+            <div class="card-content">
+              <h3>Brainstorming usuli</h3>
+              <p class="description">
+                Brainstorming - bu guruhda ijodiy g'oyalar yaratish va muammolarni hal qilish uchun samarali usul.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="action-btn">
+                  <i class="bi bi-download"></i>
+                  <span>Yuklab olish</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- TPACK modeli -->
+          <div class="tech-card">
+            <div class="card-badge">Model va usullar</div>
+            <div class="card-image">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="tpack-model">
+            </div>
+            <div class="card-content">
+              <h3>TPACK modeli</h3>
+              <p class="description">
+                TPACK (Technological Pedagogical Content Knowledge) - bu zamonaviy ta'limda pedagogik texnologiyalarni samarali qo'llash uchun muhim model.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="action-btn">
+                  <i class="bi bi-download"></i>
+                  <span>Yuklab olish</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
-    <a
-      href="#"
-      id="scroll-top"
-      class="scroll-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+    <button id="scroll-top" class="scroll-top-btn">
+      <i class="bi bi-arrow-up"></i>
+    </button>
 
     <%- include('../partials/footer.ejs') %>
   </body>

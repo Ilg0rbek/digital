@@ -4,23 +4,147 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/digital.css" />
     <title><%= title %></title>
   </head>
   <body class="index-page layout">
     <%- include('../partials/navbar.ejs') %>
 
     <main class="main">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        Raqamli metodika
+      <div class="container mt-5 section">
+        <div id="heading-container">
+          <h1 id="heading" class="text-center my-4">Raqamli Metodika</h1>
+        </div>
+        <div class="filter-tags">
+          <button class="filter-btn active">Barchasi</button>
+          <button class="filter-btn">Scratch</button>
+          <button class="filter-btn">Canva</button>
+          <button class="filter-btn">Tinkercad</button>
+          <button class="filter-btn">Flipped Classroom</button>
+          <button class="filter-btn">Robototexnika</button>
+          <button class="filter-btn">Gamifikatsiya</button>
+        </div>
+        <div class="cards-grid">
+          <!-- Scratch -->
+          <div class="digital-card">
+            <div class="card-icon">
+              <i class="bi bi-code-square"></i>
+            </div>
+            <div class="card-content">
+              <h3>Scratch</h3>
+              <p class="card-description">
+                Bolalarga dasturlash asoslarini qiziqarli tarzda o'rgatish uchun vizual dasturlash muhiti. O'quvchilar o'yinlar, animatsiyalar va interaktiv loyihalar yaratish orqali dasturlashni o'rganishadi.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="download-link">
+                  <i class="bi bi-download"></i>
+                  Ko'proq ma'lumot
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Canva va StoryJumper -->
+          <div class="digital-card">
+            <div class="card-icon">
+              <i class="bi bi-palette"></i>
+            </div>
+            <div class="card-content">
+              <h3>Canva va StoryJumper</h3>
+              <p class="card-description">
+                Ijodiy dars materiallari va taqdimotlar yaratish uchun professional dizayn vositalari. O'qituvchilar o'zlarining o'quv materiallarini yaratish va ularni interaktiv tarzda taqdim etish imkoniyatiga ega.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="download-link">
+                  <i class="bi bi-download"></i>
+                  Ko'proq ma'lumot
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tinkercad -->
+          <div class="digital-card">
+            <div class="card-icon">
+              <i class="bi bi-box"></i>
+            </div>
+            <div class="card-content">
+              <h3>Tinkercad</h3>
+              <p class="card-description">
+                3D modellashtirish ko'nikmalarini rivojlantirish uchun oson ishlatiladigan onlayn platforma. O'quvchilar o'zlarining 3D loyihalarini yaratish va ularni chop etish imkoniyatiga ega.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="download-link">
+                  <i class="bi bi-download"></i>
+                  Ko'proq ma'lumot
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flipped Classroom -->
+          <div class="digital-card">
+            <div class="card-icon">
+              <i class="bi bi-arrow-repeat"></i>
+            </div>
+            <div class="card-content">
+              <h3>Flipped Classroom</h3>
+              <p class="card-description">
+                Zamonaviy ta'lim modeli bo'lib, o'quvchilar dars materiallarini uyda o'rganib, sinfda esa amaliy mashg'ulotlar bilan shug'ullanishadi. Bu metod o'quvchilarning faol qatnashishini ta'minlaydi.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="download-link">
+                  <i class="bi bi-download"></i>
+                  Ko'proq ma'lumot
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Robototexnika -->
+          <div class="digital-card">
+            <div class="card-icon">
+              <i class="bi bi-robot"></i>
+            </div>
+            <div class="card-content">
+              <h3>Robototexnika platformalari</h3>
+              <p class="card-description">
+                O'quvchilarga robototexnika asoslarini o'rgatish uchun maxsus platformalar. Bu platformalar orqali o'quvchilar robotlarni dasturlash va ularni boshqarish ko'nikmalarini o'zlashtiradilar.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="download-link">
+                  <i class="bi bi-download"></i>
+                  Ko'proq ma'lumot
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gamifikatsiya -->
+          <div class="digital-card">
+            <div class="card-icon">
+              <i class="bi bi-controller"></i>
+            </div>
+            <div class="card-content">
+              <h3>Gamifikatsiya</h3>
+              <p class="card-description">
+                O'yin elementlarini dars jarayoniga qo'shish orqali o'quvchilarning qiziqishini oshirish va ularning o'rganish samaradorligini yaxshilash. Bu metod o'quvchilarni faol qatnashishga undaydi.
+              </p>
+              <div class="card-footer">
+                <a href="#" class="download-link">
+                  <i class="bi bi-download"></i>
+                  Ko'proq ma'lumot
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
-    <a
-      href="#"
-      id="scroll-top"
-      class="scroll-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+    <a href="#" id="scroll-top" class="scroll-top">
+      <i class="bi bi-arrow-up-short"></i>
+    </a>
 
     <%- include('../partials/footer.ejs') %>
   </body>

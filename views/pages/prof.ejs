@@ -10,56 +10,180 @@
   <body class="index-page layout">
     <%- include('../partials/navbar.ejs') %>
 
-    <main class="main">
-      <div
-        class="container mt-5 section"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        <div id="heading-container">
-          <h1 id="heading">Kasbiy rivojlanish</h1>
-        </div>
-        <div id="categories">
-          <div class="categories">Barchasi</div>
-          <div class="categories">Darsliklar</div>
-          <div class="categories">Video kontentlar</div>
-          <div class="categories">Foydali ma'lumotlar</div>
-          <div class="categories">Yangliklar</div>
-          <div class="categories">Ijodiy loyihalar</div>
-        </div>
-        <div id="main-conatiner-cards">
-          <div class="video-cards">
-            <img
-              src="https://edyoda.s3.amazonaws.com/media/blog-images/learn_machine_learning_courses_online.png"
-              alt="machine-learning"
-            />
-            <div class="card-content">
-              <h3>Introduction to a machine learning online course</h3>
-              <div class="author-date-conatiner">
-                <span id="author"><i>Yuklab olish</i></span>
-                <span> | </span>
-                <i class="bi bi-download"></i>
+    <main class="main pt-5" style="background:  #f0f2f5;">
+      <div class="prof-container pt-5">
+        <div class="sidebar">
+          <div class="sidebar-section">
+            <h3>Kategoriyalar</h3>
+            <ul class="category-list">
+              <li class="active">
+                <i class="bi bi-book"></i>
+                <span>Barchasi</span>
+                <span class="count">89</span>
+              </li>
+              <li>
+                <i class="bi bi-book"></i>
+                <span>Darsliklar</span>
+                <span class="count">24</span>
+              </li>
+              <li>
+                <i class="bi bi-camera-video"></i>
+                <span>Video kontentlar</span>
+                <span class="count">18</span>
+              </li>
+              <li>
+                <i class="bi bi-info-circle"></i>
+                <span>Foydali ma'lumotlar</span>
+                <span class="count">32</span>
+              </li>
+              <li>
+                <i class="bi bi-newspaper"></i>
+                <span>Yangiliklar</span>
+                <span class="count">15</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <h3>So'nggi qo'shilgan</h3>
+            <div class="recent-items">
+              <div class="recent-item">
+                <div class="recent-icon">
+                  <i class="bi bi-file-text"></i>
+                </div>
+                <div class="recent-info">
+                  <h4>Yangi darslik</h4>
+                  <span>2 soat oldin</span>
+                </div>
               </div>
-              <p class="description">
-                If you are a fresh graduate - or new to IT - looking for the
-                next job, you need to read this.The last couple of years
-                zekeLabs gave me a unique opportunity to assess technology
-                demand in the industry and also to evaluate available talent
-                pool for the demand.
-              </p>
+              <div class="recent-item">
+                <div class="recent-icon">
+                  <i class="bi bi-camera-video"></i>
+                </div>
+                <div class="recent-info">
+                  <h4>Video dars</h4>
+                  <span>5 soat oldin</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-area">
+          <div class="content-header">
+            <h2>Barchasi</h2>
+          </div>
+
+          <div class="content-grid">
+            <!-- Darsliklar -->
+            <div class="content-card">
+              <div class="card-header">
+                <div class="card-icon">
+                  <i class="bi bi-book"></i>
+                </div>
+                <div class="card-badge">Darsliklar</div>
+              </div>
+              <div class="card-body">
+                <h3>Zamonaviy darsliklar</h3>
+                <p>O'qituvchilar uchun zamonaviy darsliklar va o'quv qo'llanmalar to'plami.</p>
+                <div class="card-meta">
+                  <span><i class="bi bi-download"></i> 1.2k</span>
+                  <span><i class="bi bi-eye"></i> 5.4k</span>
+                  <span><i class="bi bi-clock"></i> 2 soat oldin</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="download-btn">
+                  <i class="bi bi-download"></i>
+                  <span>Yuklab olish</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Video kontentlar -->
+            <div class="content-card">
+              <div class="card-header">
+                <div class="card-icon">
+                  <i class="bi bi-camera-video"></i>
+                </div>
+                <div class="card-badge">Video</div>
+              </div>
+              <div class="card-body">
+                <h3>O'qituvchilar uchun video darslar</h3>
+                <p>Professional o'qituvchilar tomonidan tayyorlangan video darslar va treninglar.</p>
+                <div class="card-meta">
+                  <span><i class="bi bi-play-circle"></i> 2.5k</span>
+                  <span><i class="bi bi-eye"></i> 8.7k</span>
+                  <span><i class="bi bi-clock"></i> 5 soat oldin</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="watch-btn">
+                  <i class="bi bi-play-circle"></i>
+                  <span>Ko'rish</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Foydali ma'lumotlar -->
+            <div class="content-card">
+              <div class="card-header">
+                <div class="card-icon">
+                  <i class="bi bi-info-circle"></i>
+                </div>
+                <div class="card-badge">Ma'lumotlar</div>
+              </div>
+              <div class="card-body">
+                <h3>Pedagogik ma'lumotlar</h3>
+                <p>O'qituvchilar uchun foydali ma'lumotlar, metodik qo'llanmalar va tavsiyalar.</p>
+                <div class="card-meta">
+                  <span><i class="bi bi-file-text"></i> 3.1k</span>
+                  <span><i class="bi bi-eye"></i> 6.9k</span>
+                  <span><i class="bi bi-clock"></i> 1 kun oldin</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="read-btn">
+                  <i class="bi bi-file-text"></i>
+                  <span>O'qish</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Yangiliklar -->
+            <div class="content-card">
+              <div class="card-header">
+                <div class="card-icon">
+                  <i class="bi bi-newspaper"></i>
+                </div>
+                <div class="card-badge">Yangiliklar</div>
+              </div>
+              <div class="card-body">
+                <h3>Ta'lim sohasidagi yangiliklar</h3>
+                <p>Ta'lim sohasidagi so'nggi yangiliklar, o'zgarishlar va yangi metodlar.</p>
+                <div class="card-meta">
+                  <span><i class="bi bi-newspaper"></i> Yangi</span>
+                  <span><i class="bi bi-eye"></i> 4.2k</span>
+                  <span><i class="bi bi-clock"></i> 3 soat oldin</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="read-more-btn">
+                  <i class="bi bi-newspaper"></i>
+                  <span>Batafsil</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </main>
 
-    <a
-      href="#"
-      id="scroll-top"
-      class="scroll-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+    <button id="scroll-top" class="scroll-top-btn">
+      <i class="bi bi-arrow-up"></i>
+    </button>
 
     <%- include('../partials/footer.ejs') %>
+    <script src="js/prof.js"></script>
   </body>
 </html>

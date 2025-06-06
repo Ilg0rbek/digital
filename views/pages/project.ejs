@@ -4,23 +4,209 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/project.css" />
     <title><%= title %></title>
   </head>
   <body class="index-page layout">
     <%- include('../partials/navbar.ejs') %>
 
     <main class="main">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        Ijodiy loyihalar
+      <div class="container mt-5 section">
+        <div id="heading-container">
+          <h1 id="heading" class="text-center my-4">Ijodiy Loyihalar</h1>
+          <p class="subtitle text-center">Ta'lim jarayonida ijodiy yondashuvlar va innovatsion loyihalar</p>
+        </div>
+
+        <div class="project-categories">
+          <div class="category-item active">
+            <i class="bi bi-lightbulb"></i>
+            <span>Barchasi</span>
+          </div>
+          <div class="category-item">
+            <i class="bi bi-puzzle"></i>
+            <span>Topshiriqlar</span>
+          </div>
+          <div class="category-item">
+            <i class="bi bi-palette"></i>
+            <span>Dizayn</span>
+          </div>
+          <div class="category-item">
+            <i class="bi bi-book"></i>
+            <span>Ta'lim</span>
+          </div>
+          <div class="category-item">
+            <i class="bi bi-tree"></i>
+            <span>Tabiat</span>
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Tafakkur o'stiruvchi topshiriqlar -->
+          <div class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tafakkur topshiriqlari">
+              <div class="project-overlay">
+                <span class="project-tag">Topshiriq</span>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Tafakkur o'stiruvchi topshiriqlar</h3>
+              <p>O'quvchilarning tanqidiy tafakkurini rivojlantirishga yo'naltirilgan interaktiv topshiriqlar va mashg'ulotlar.</p>
+              <div class="project-footer">
+                <a href="#" class="project-link">
+                  <i class="bi bi-arrow-right"></i>
+                  Batafsil
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Muammoli vaziyatlar -->
+          <div class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Muammoli vaziyatlar">
+              <div class="project-overlay">
+                <span class="project-tag">Muammo</span>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Muammoli vaziyatlar asosidagi topshiriqlar</h3>
+              <p>Real hayotiy muammolarni hal qilishga yo'naltirilgan topshiriqlar va loyihalar.</p>
+              <div class="project-footer">
+                <a href="#" class="project-link">
+                  <i class="bi bi-arrow-right"></i>
+                  Batafsil
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dizayn modellashtirish -->
+          <div class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Dizayn modellashtirish">
+              <div class="project-overlay">
+                <span class="project-tag">Dizayn</span>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Dizaynga yo'naltirilgan modellashtirish</h3>
+              <p>Ijodiy dizayn va modellashtirish ishlarini amalga oshirish bo'yicha loyihalar.</p>
+              <div class="project-footer">
+                <a href="#" class="project-link">
+                  <i class="bi bi-arrow-right"></i>
+                  Batafsil
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slaydlar -->
+          <div class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Slaydlar">
+              <div class="project-overlay">
+                <span class="project-tag">Ta'lim</span>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Texnologiya darslariga oid slaydlar</h3>
+              <p>Zamonaviy ta'lim texnologiyalariga oid interaktiv taqdimotlar va slaydlar.</p>
+              <div class="project-footer">
+                <a href="#" class="project-link">
+                  <i class="bi bi-arrow-right"></i>
+                  Batafsil
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ko'rgazmali qurollar -->
+          <div class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ko'rgazmali qurollar">
+              <div class="project-overlay">
+                <span class="project-tag">Ta'lim</span>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Boshlang'ich ta'limga oid ko'rgazmali qurollar</h3>
+              <p>Boshlang'ich sinf o'quvchilari uchun ko'rgazmali o'quv qurollari va materiallar.</p>
+              <div class="project-footer">
+                <a href="#" class="project-link">
+                  <i class="bi bi-arrow-right"></i>
+                  Batafsil
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Zamonaviy metodlar -->
+          <div class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Zamonaviy metodlar">
+              <div class="project-overlay">
+                <span class="project-tag">Metodika</span>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Texnologiya darslarida zamonaviy metodlar</h3>
+              <p>Zamonaviy ta'lim metodlaridan foydalanish bo'yicha amaliy maslahatlar va loyihalar.</p>
+              <div class="project-footer">
+                <a href="#" class="project-link">
+                  <i class="bi bi-arrow-right"></i>
+                  Batafsil
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabiatdan ilhomlangan maket -->
+          <div class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tabiat maket">
+              <div class="project-overlay">
+                <span class="project-tag">Tabiat</span>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Tabiatdan ilhomlangan maket yaratish</h3>
+              <p>Tabiat elementlaridan ilhomlangan ijodiy maketlar va loyihalar.</p>
+              <div class="project-footer">
+                <a href="#" class="project-link">
+                  <i class="bi bi-arrow-right"></i>
+                  Batafsil
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ertak tuzish -->
+          <div class="project-card">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ertak">
+              <div class="project-overlay">
+                <span class="project-tag">Ijod</span>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Bolalar uchun mavzuga doir ertak tuzish</h3>
+              <p>Bolalar uchun o'quv mavzulariga mos ertaklar yaratish va ularni taqdim etish.</p>
+              <div class="project-footer">
+                <a href="#" class="project-link">
+                  <i class="bi bi-arrow-right"></i>
+                  Batafsil
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
-    <a
-      href="#"
-      id="scroll-top"
-      class="scroll-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+    <a href="#" id="scroll-top" class="scroll-top">
+      <i class="bi bi-arrow-up-short"></i>
+    </a>
 
     <%- include('../partials/footer.ejs') %>
   </body>
