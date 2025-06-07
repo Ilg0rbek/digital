@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/head.ejs') %>
+    <link rel="stylesheet" href="css/digital.css" />
+    <title><%= title %></title>
+  </head>
+  <body class="index-page layout">
+    <%- include('../partials/navbar.ejs') %>
+
+    <main class="main" style="background: #f8fafc;">
+      <!-- Top Banner -->
+      <div class="container py-5">
+        <div>
+            <div class="container py-5">
+              <div class="row align-items-center mt-5">
+                <div class="col-md-8">
+                  <h1 class="h3 mb-0">Loyiha yuklash</h1>
+                </div>
+                <div class="col-md-4 text-md-end">
+                  <a href="/files/b-mezon.docx" download="b-mezon.docx" class="btn btn-light btn-sm">
+                    <i class="bi bi-download me-2"></i>
+                    Baholash mezonlari bilan tanishish
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="row">
+          <!-- Progress Steps -->
+          <div class="col-lg-3 mb-4" data-aos="fade-right">
+            <div class="steps-container">
+              <div class="step active">
+                <div class="step-icon">
+                  <i class="bi bi-1-circle-fill"></i>
+                </div>
+                <div class="step-content">
+                  <h6>Loyiha ma'lumotlari</h6>
+                  <p class="small text-muted">Asosiy ma'lumotlarni kiriting</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-icon">
+                  <i class="bi bi-2-circle"></i>
+                </div>
+                <div class="step-content">
+                  <h6>Rasmlar</h6>
+                  <p class="small text-muted">Loyiha rasmlarini yuklang</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-icon">
+                  <i class="bi bi-3-circle"></i>
+                </div>
+                <div class="step-content">
+                  <h6>Fayllar</h6>
+                  <p class="small text-muted">Loyiha fayllarini yuklang</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-icon">
+                  <i class="bi bi-4-circle"></i>
+                </div>
+                <div class="step-content">
+                  <h6>Tekshirish</h6>
+                  <p class="small text-muted">Ma'lumotlarni tekshiring</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Form -->
+          <div class="col-lg-9" data-aos="fade-left">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4">
+                <form action="/submit-project" method="POST" enctype="multipart/form-data">
+                  <!-- Project Category -->
+                  <div class="form-group mb-4">
+                    <label class="form-label d-flex align-items-center">
+                      <i class="bi bi-folder me-2 text-primary"></i>
+                      Loyiha kategoriyasi
+                    </label>
+                    <select class="form-select" id="category" name="category" required>
+                      <option value="">Kategoriyani tanlang</option>
+                      <option value="pedagogik">Pedagogik loyihalar</option>
+                      <option value="ijodiy">Ijodiy loyihalar</option>
+                      <option value="innovatsion">Innovatsion loyihalar</option>
+                      <option value="metodik">Metodik loyihalar</option>
+                      <option value="texnologik">Texnologik loyihalar</option>
+                      <option value="tadqiqot">Tadqiqot loyihalari</option>
+                      <option value="ijtimoiy">Ijtimoiy loyihalar</option>
+                      <option value="boshqa">Boshqa loyihalar</option>
+                    </select>
+                  </div>
+
+                  <!-- Project Name -->
+                  <div class="form-group mb-4">
+                    <label class="form-label d-flex align-items-center">
+                      <i class="bi bi-pencil me-2 text-primary"></i>
+                      Loyiha nomi
+                    </label>
+                    <input type="text" class="form-control" id="projectName" name="projectName" required>
+                  </div>
+
+                  <!-- Project Description -->
+                  <div class="form-group mb-4">
+                    <label class="form-label d-flex align-items-center">
+                      <i class="bi bi-text-paragraph me-2 text-primary"></i>
+                      Loyiha haqida ma'lumot
+                    </label>
+                    <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                  </div>
+
+                  <!-- Project Images -->
+                  <div class="form-group mb-4">
+                    <label class="form-label d-flex align-items-center">
+                      <i class="bi bi-image me-2 text-primary"></i>
+                      Loyiha rasmlari
+                    </label>
+                    <div class="upload-zone" id="imageDropZone">
+                      <div class="upload-content">
+                        <i class="bi bi-cloud-upload display-4 text-primary"></i>
+                        <p class="mt-3">Rasmlarni bu yerga tashlang yoki</p>
+                        <input type="file" class="d-none" id="images" name="images" multiple accept="image/*" required>
+                        <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('images').click()">
+                          Tanlash
+                        </button>
+                      </div>
+                    </div>
+                    <div id="imagePreview" class="mt-3 d-flex flex-wrap gap-2"></div>
+                  </div>
+
+                  <!-- Project Files -->
+                  <div class="form-group mb-4">
+                    <label class="form-label d-flex align-items-center">
+                      <i class="bi bi-file-earmark me-2 text-primary"></i>
+                      Loyiha fayllari
+                    </label>
+                    <div class="upload-zone" id="fileDropZone">
+                      <div class="upload-content">
+                        <i class="bi bi-cloud-upload display-4 text-primary"></i>
+                        <p class="mt-3">Fayllarni bu yerga tashlang yoki</p>
+                        <input type="file" class="d-none" id="projectFiles" name="projectFiles" multiple accept=".doc,.docx,.pdf,.pptx" required>
+                        <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('projectFiles').click()">
+                          Tanlash
+                        </button>
+                      </div>
+                    </div>
+                    <div id="filePreview" class="mt-3"></div>
+                    <div class="form-text mt-2">
+                      <i class="bi bi-info-circle me-1"></i>
+                      Qo'llab-quvvatlanadigan formatlar: DOC, DOCX, PDF, PPTX
+                    </div>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <div class="text-end">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="bi bi-cloud-upload me-2"></i>
+                      Loyihani yuklash
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <a href="#" id="scroll-top" class="scroll-top">
+      <i class="bi bi-arrow-up-short"></i>
+    </a>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <style>
+      .steps-container {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .step {
+        display: flex;
+        align-items: flex-start;
+        padding: 1rem 0;
+        border-left: 2px solid #e9ecef;
+        margin-left: 1rem;
+        position: relative;
+      }
+
+      .step:last-child {
+        border-left: none;
+      }
+
+      .step.active {
+        border-left-color: var(--bs-primary);
+      }
+
+      .step-icon {
+        width: 2rem;
+        height: 2rem;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: -1rem;
+        font-size: 1.2rem;
+        color: #6c757d;
+      }
+
+      .step.active .step-icon {
+        color: var(--bs-primary);
+      }
+
+      .step-content {
+        margin-left: 1rem;
+      }
+
+      .step-content h6 {
+        margin: 0;
+        font-weight: 600;
+      }
+
+      .upload-zone {
+        border: 2px dashed #dee2e6;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+      }
+
+      .upload-zone:hover {
+        border-color: var(--bs-primary);
+        background: #f1f3f5;
+      }
+
+      .upload-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .form-group {
+        position: relative;
+      }
+
+      .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-control, .form-select {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 0.75rem;
+      }
+
+      .form-control:focus, .form-select:focus {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+      }
+    </style>
+
+    <script>
+      // Image preview functionality
+      const imageDropZone = document.getElementById('imageDropZone');
+      const imageInput = document.getElementById('images');
+      const imagePreview = document.getElementById('imagePreview');
+
+      imageInput.addEventListener('change', function(e) {
+        handleFiles(this.files);
+      });
+
+      imageDropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        imageDropZone.style.borderColor = 'var(--bs-primary)';
+        imageDropZone.style.background = '#f1f3f5';
+      });
+
+      imageDropZone.addEventListener('dragleave', () => {
+        imageDropZone.style.borderColor = '#dee2e6';
+        imageDropZone.style.background = '#f8f9fa';
+      });
+
+      imageDropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        imageDropZone.style.borderColor = '#dee2e6';
+        imageDropZone.style.background = '#f8f9fa';
+        handleFiles(e.dataTransfer.files);
+      });
+
+      function handleFiles(files) {
+        imagePreview.innerHTML = '';
+        [...files].forEach(file => {
+          if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const div = document.createElement('div');
+              div.className = 'position-relative';
+              div.innerHTML = `
+                <img src="${e.target.result}" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1" onclick="this.parentElement.remove()">
+                  <i class="bi bi-x"></i>
+                </button>
+              `;
+              imagePreview.appendChild(div);
+            }
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      // File preview functionality
+      const fileDropZone = document.getElementById('fileDropZone');
+      const fileInput = document.getElementById('projectFiles');
+      const filePreview = document.getElementById('filePreview');
+
+      fileInput.addEventListener('change', function(e) {
+        handleProjectFiles(this.files);
+      });
+
+      fileDropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        fileDropZone.style.borderColor = 'var(--bs-primary)';
+        fileDropZone.style.background = '#f1f3f5';
+      });
+
+      fileDropZone.addEventListener('dragleave', () => {
+        fileDropZone.style.borderColor = '#dee2e6';
+        fileDropZone.style.background = '#f8f9fa';
+      });
+
+      fileDropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        fileDropZone.style.borderColor = '#dee2e6';
+        fileDropZone.style.background = '#f8f9fa';
+        handleProjectFiles(e.dataTransfer.files);
+      });
+
+      function handleProjectFiles(files) {
+        filePreview.innerHTML = '';
+        [...files].forEach(file => {
+          const div = document.createElement('div');
+          div.className = 'alert alert-info d-flex align-items-center mb-2';
+          div.innerHTML = `
+            <i class="bi bi-file-earmark-text me-2"></i>
+            <div class="flex-grow-1">${file.name}</div>
+            <button type="button" class="btn btn-sm btn-outline-danger" onclick="this.parentElement.remove()">
+              <i class="bi bi-x"></i>
+            </button>
+          `;
+          filePreview.appendChild(div);
+        });
+      }
+    </script>
+  </body>
+</html>

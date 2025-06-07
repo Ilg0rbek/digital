@@ -102,6 +102,16 @@ async function registerPage(req, res) {
   }
 }
 
+async function submitProject(req, res) {
+  try {
+    res.render("pages/project-submit.ejs", {
+      title: "Loyihani yuklash"
+    })
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   mainPage,
   technoPage,
@@ -111,5 +121,6 @@ module.exports = {
   projectPage,
   testSolutionPage,
   loginPage,
-  registerPage
+  registerPage,
+  submitProject
 };
