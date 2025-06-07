@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <%- include('../partials/head.ejs') %>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%- include('../partials/head.ejs') %>
     <link rel="stylesheet" href="css/project.css" />
-    <title><%= title %></title>
-  </head>
-  <body class="index-page layout">
-    <%- include('../partials/navbar.ejs') %>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body class="index-page layout">
+  <%- include('../partials/navbar.ejs') %>
 
     <main class="main">
       <div class="container mt-5 section">
         <div id="heading-container">
           <h1 id="heading" class="text-center my-4">Ijodiy Loyihalar</h1>
-          <p class="subtitle text-center">Ta'lim jarayonida ijodiy yondashuvlar va innovatsion loyihalar</p>
+          <p class="subtitle text-center">Ta'lim jarayonida ijodiy yondashuvlar va innovatsion loyihalar
+             <br><a href="/project-upload">Yangi loyinangizni yuklash</a>
+          </p>
         </div>
 
         <div class="project-categories">
@@ -44,14 +50,17 @@
           <!-- Tafakkur o'stiruvchi topshiriqlar -->
           <div class="project-card">
             <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tafakkur topshiriqlari">
+              <img
+                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                alt="Tafakkur topshiriqlari">
               <div class="project-overlay">
                 <span class="project-tag">Topshiriq</span>
               </div>
             </div>
             <div class="project-content">
               <h3>Tafakkur o'stiruvchi topshiriqlar</h3>
-              <p>O'quvchilarning tanqidiy tafakkurini rivojlantirishga yo'naltirilgan interaktiv topshiriqlar va mashg'ulotlar.</p>
+              <p>O'quvchilarning tanqidiy tafakkurini rivojlantirishga yo'naltirilgan interaktiv topshiriqlar va
+                mashg'ulotlar.</p>
               <div class="project-footer">
                 <a href="#" class="project-link">
                   <i class="bi bi-arrow-right"></i>
@@ -64,7 +73,9 @@
           <!-- Muammoli vaziyatlar -->
           <div class="project-card">
             <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Muammoli vaziyatlar">
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                alt="Muammoli vaziyatlar">
               <div class="project-overlay">
                 <span class="project-tag">Muammo</span>
               </div>
@@ -84,7 +95,9 @@
           <!-- Dizayn modellashtirish -->
           <div class="project-card">
             <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Dizayn modellashtirish">
+              <img
+                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                alt="Dizayn modellashtirish">
               <div class="project-overlay">
                 <span class="project-tag">Dizayn</span>
               </div>
@@ -104,7 +117,9 @@
           <!-- Slaydlar -->
           <div class="project-card">
             <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Slaydlar">
+              <img
+                src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                alt="Slaydlar">
               <div class="project-overlay">
                 <span class="project-tag">Ta'lim</span>
               </div>
@@ -124,7 +139,9 @@
           <!-- Ko'rgazmali qurollar -->
           <div class="project-card">
             <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ko'rgazmali qurollar">
+              <img
+                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                alt="Ko'rgazmali qurollar">
               <div class="project-overlay">
                 <span class="project-tag">Ta'lim</span>
               </div>
@@ -144,7 +161,9 @@
           <!-- Zamonaviy metodlar -->
           <div class="project-card">
             <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Zamonaviy metodlar">
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                alt="Zamonaviy metodlar">
               <div class="project-overlay">
                 <span class="project-tag">Metodika</span>
               </div>
@@ -164,7 +183,9 @@
           <!-- Tabiatdan ilhomlangan maket -->
           <div class="project-card">
             <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tabiat maket">
+              <img
+                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                alt="Tabiat maket">
               <div class="project-overlay">
                 <span class="project-tag">Tabiat</span>
               </div>
@@ -184,7 +205,9 @@
           <!-- Ertak tuzish -->
           <div class="project-card">
             <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ertak">
+              <img
+                src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                alt="Ertak">
               <div class="project-overlay">
                 <span class="project-tag">Ijod</span>
               </div>
@@ -209,5 +232,6 @@
     </a>
 
     <%- include('../partials/footer.ejs') %>
-  </body>
+</body>
+
 </html>
