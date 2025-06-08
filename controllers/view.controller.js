@@ -68,22 +68,22 @@ async function projectPage(req, res) {
 
 async function testSolutionPage(req, res) {
   try {
-      const { type } = req.query;
+    const { type } = req.query;
 
-      const selectedTest = test[type] || {
-        title: "Test topilmadi",
-        description: "Kechirasiz, bu test hozircha mavjud emas",
-        questions: []
-      };
-    
-      res.render('pages/test-solution.ejs', {
-        title: selectedTest.title,
-        testTitle: selectedTest.title,
-        testDescription: selectedTest.description,
-        questions: selectedTest.questions,
-        testType: type,
-        path: '/test-solution'
-      });
+    const selectedTest = test[type] || {
+      title: "Test topilmadi",
+      description: "Kechirasiz, bu test hozircha mavjud emas",
+      questions: []
+    };
+
+    res.render('pages/test-solution.ejs', {
+      title: selectedTest.title,
+      testTitle: selectedTest.title,
+      testDescription: selectedTest.description,
+      questions: selectedTest.questions,
+      testType: type,
+      path: '/test-solution'
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -122,6 +122,49 @@ async function submitProject(req, res) {
   }
 }
 
+async function projectDetails(req, res) {
+  try {
+    let projects = [
+      {
+        id: 1,
+        title: "Tafakkur o'stiruvchi topshiriqlar",
+        category: "Topshiriq",
+        description: "O'quvchilarning tanqidiy tafakkurini rivojlantirishga yo'naltirilgan interaktiv topshiriqlar va mashg'ulotlar. Bu loyiha orqali o'quvchilar murakkab muammolarni hal qilish, tahlil qilish va yechim topish ko'nikmalarini rivojlantirishlari mumkin.",
+        images: ["https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60", "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"],
+        createdAt: new Date('2024-03-15'),
+        files: [
+          {
+            name: "Topshiriqlar to'plami.pdf",
+            url: "/files/tasks.pdf"
+          },
+          {
+            name: "Metodik qo'llanma.docx",
+            url: "/files/guide.docx"
+          }
+        ],
+        author: {
+          name: "Aziza Karimova",
+          title: "Boshlang'ich sinf o'qituvchisi",
+          avatar: "https://randomuser.me/api/portraits/women/1.jpg"
+        }
+      },
+
+    ];
+  
+    res.render('pages/project-details.ejs', {
+      title: 'Loyihalar ro\'yxati',
+      projects: projects,
+      path: '/project-details'
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).render('pages/error', {
+      title: 'Xatolik yuz berdi',
+      path: '/error'
+    });
+  }
+}
+
 module.exports = {
   mainPage,
   technoPage,
@@ -132,5 +175,6 @@ module.exports = {
   testSolutionPage,
   loginPage,
   registerPage,
-  submitProject
+  submitProject,
+  projectDetails
 };

@@ -9,7 +9,8 @@ const {
   testSolutionPage,
   loginPage,
   registerPage,
-  submitProject
+  submitProject,
+  projectDetails
 } = require("../controllers/view.controller");
 
 const router = Router();
@@ -24,5 +25,6 @@ router.get("/test-solution", testSolutionPage);
 router.get("/login", loginPage);
 router.get("/register", registerPage);
 router.get("/project-upload", submitProject )
+router.get("/project-details/:id", projectDetails)
 
 module.exports = router;
