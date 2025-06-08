@@ -148,7 +148,6 @@ async function projectDetails(req, res) {
           avatar: "https://randomuser.me/api/portraits/women/1.jpg"
         }
       },
-
     ];
   
     res.render('pages/project-details.ejs', {
@@ -158,10 +157,6 @@ async function projectDetails(req, res) {
     });
   } catch (error) {
     console.log(error.message);
-    res.status(500).render('pages/error', {
-      title: 'Xatolik yuz berdi',
-      path: '/error'
-    });
   }
 }
 
