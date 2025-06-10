@@ -1,4 +1,5 @@
 const test = require('../config/db')
+const Project = require("../models/project.model")
 
 async function mainPage(req, res) {
   try {
@@ -57,73 +58,8 @@ async function diagnosPage(req, res) {
 
 async function projectPage(req, res) {
   try {
-    const projects = [
-      {
-        id: 1,
-        title: "Tafakkur o'stiruvchi topshiriqlar",
-        category: "Topshiriq",
-        description: "O'quvchilarning tanqidiy tafakkurini rivojlantirishga yo'naltirilgan interaktiv topshiriqlar va mashg'ulotlar.",
-        image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        link: "/project-details/1"
-      },
-      {
-        id: 2,
-        title: "Muammoli vaziyatlar asosidagi topshiriqlar",
-        category: "Muammo",
-        description: "Real hayotiy muammolarni hal qilishga yo'naltirilgan topshiriqlar va loyihalar.",
-        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        link: "/project-details/2"
-      },
-      {
-        id: 3,
-        title: "Dizaynga yo'naltirilgan modellashtirish",
-        category: "Dizayn",
-        description: "Ijodiy dizayn va modellashtirish ishlarini amalga oshirish bo'yicha loyihalar.",
-        image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        link: "/project-details/3"
-      },
-      {
-        id: 4,
-        title: "Texnologiya darslariga oid slaydlar",
-        category: "Ta'lim",
-        description: "Zamonaviy ta'lim texnologiyalariga oid interaktiv taqdimotlar va slaydlar.",
-        image: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        link: "/project-details/4"
-      },
-      {
-        id: 5,
-        title: "Boshlang'ich ta'limga oid ko'rgazmali qurollar",
-        category: "Ta'lim",
-        description: "Boshlang'ich sinf o'quvchilari uchun ko'rgazmali o'quv qurollari va materiallar.",
-        image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        link: "/project-details/5"
-      },
-      {
-        id: 6,
-        title: "Texnologiya darslarida zamonaviy metodlar",
-        category: "Metodika",
-        description: "Zamonaviy ta'lim metodlaridan foydalanish bo'yicha amaliy maslahatlar va loyihalar.",
-        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        link: "/project-details/6"
-      },
-      {
-        id: 7,
-        title: "Tabiatdan ilhomlangan maket yaratish",
-        category: "Tabiat",
-        description: "Tabiat elementlaridan ilhomlangan ijodiy maketlar va loyihalar.",
-        image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        link: "/project-details/7"
-      },
-      {
-        id: 8,
-        title: "Bolalar uchun mavzuga doir ertak tuzish",
-        category: "Ijod",
-        description: "Bolalar uchun o'quv mavzulariga mos ertaklar yaratish va ularni taqdim etish.",
-        image: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        link: "/project-details/8"
-      }
-    ];
-
+    let projects = await Project.find()
+        
     res.render("pages/project.ejs", {
       title: "Ijodiy loyihalar",
       path: '/projects',
@@ -181,9 +117,12 @@ async function registerPage(req, res) {
 
 async function submitProject(req, res) {
   try {
+    const projects = await Project.find({}, 'title _id');
+    
     res.render("pages/project-submit.ejs", {
       title: "Loyihani yuklash",
-      path: '/project-upload'
+      path: '/project-upload',
+      projects: projects
     })
   } catch (error) {
     console.log(error.message);

@@ -83,15 +83,10 @@
                       Loyiha kategoriyasi
                     </label>
                     <select class="form-select" id="category" name="category" required>
-                      <option value="">Kategoriyani tanlang</option>
-                      <option value="pedagogik">Pedagogik loyihalar</option>
-                      <option value="ijodiy">Ijodiy loyihalar</option>
-                      <option value="innovatsion">Innovatsion loyihalar</option>
-                      <option value="metodik">Metodik loyihalar</option>
-                      <option value="texnologik">Texnologik loyihalar</option>
-                      <option value="tadqiqot">Tadqiqot loyihalari</option>
-                      <option value="ijtimoiy">Ijtimoiy loyihalar</option>
-                      <option value="boshqa">Boshqa loyihalar</option>
+                      <option value="" selected disabled>Kategoriyani tanlang</option>
+                      <% projects.forEach(project => { %>
+                        <option value="<%= project._id %>"><%= project.title %></option>
+                      <% }); %>
                     </select>
                   </div>
 
