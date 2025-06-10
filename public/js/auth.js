@@ -35,6 +35,7 @@ async function handleLogin(event) {
 
     // Save user data to localStorage
     localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('token', data.token);
 
     // Redirect to home page
     window.location.href = '/';
@@ -93,6 +94,7 @@ async function handleRegister(event) {
 
     // Save user data to localStorage
     localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('token', data.token);
 
     // Redirect to home page
     window.location.href = '/';
@@ -109,8 +111,8 @@ async function handleRegister(event) {
 
 // Add event listeners when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.querySelector('form[action="/auth/login"]');
-  const registerForm = document.querySelector('form[action="/auth/register"]');
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
 
   if (loginForm) {
     loginForm.addEventListener('submit', handleLogin);

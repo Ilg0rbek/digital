@@ -19,7 +19,9 @@
         <div id="heading-container">
           <h1 id="heading" class="text-center my-4">Ijodiy Loyihalar</h1>
           <p class="subtitle text-center">Ta'lim jarayonida ijodiy yondashuvlar va innovatsion loyihalar
-             <br><a href="/project-upload">Yangi loyinangizni yuklash</a>
+             <% if (locals.user) { %>
+               <br><a href="/project-upload">Yangi loyinangizni yuklash</a>
+             <% } %>
           </p>
         </div>
 

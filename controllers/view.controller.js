@@ -97,7 +97,8 @@ async function loginPage(req, res) {
   try {
     res.render("pages/login.ejs", {
       title: "Kirish",
-      path: '/login'
+      path: '/login',
+      message: req.query.message
     });
   } catch (error) {
     console.log(error.message);
