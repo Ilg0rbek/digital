@@ -45,11 +45,12 @@
                       <input type="checkbox" class="form-check-input" id="remember">
                       <label class="form-check-label" for="remember">Meni eslab qol</label>
                     </div>
-                    <a href="/login" class="text-primary">Parolni unutdingizmi?</a>
+                    <a href="/forgot-password" class="text-primary">Parolni unutdingizmi?</a>
                   </div>
 
-                  <button type="submit" class="btn btn-primary w-100 mb-3">
-                    Kirish
+                  <button type="submit" class="btn btn-primary w-100 mb-3" id="loginButton">
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    <span class="button-text">Kirish</span>
                   </button>
 
                   <div class="text-center">
@@ -62,5 +63,7 @@
         </div>
       </section>
     </main>
+
+    <script src="/js/auth.js"></script>
   </body>
 </html> 

@@ -59,7 +59,7 @@ async function diagnosPage(req, res) {
 async function projectPage(req, res) {
   try {
     let projects = await Project.find()
-        
+    
     res.render("pages/project.ejs", {
       title: "Ijodiy loyihalar",
       path: '/projects',
@@ -117,12 +117,12 @@ async function registerPage(req, res) {
 
 async function submitProject(req, res) {
   try {
-    const projects = await Project.find({}, 'title _id');
-    
+    let projects = await Project.find()
+
     res.render("pages/project-submit.ejs", {
       title: "Loyihani yuklash",
       path: '/project-upload',
-      projects: projects
+      projects:projects
     })
   } catch (error) {
     console.log(error.message);

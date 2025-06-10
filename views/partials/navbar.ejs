@@ -17,7 +17,109 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-      <a class="btn-getstarted" href="/login">Kirish</a>
+      <% if (locals.user) { %>
+        <div class="dropdown">
+          <button class="btn btn-link dropdown-toggle d-flex align-items-center text-decoration-none" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="avatar-circle me-2">
+              <%= user.firstname.charAt(0).toUpperCase() %>
+            </div>
+            <%= user.firstname.charAt(0).toUpperCase() + user.firstname.slice(1) %>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#" onclick="handleLogout(event)">Chiqish</a></li>
+          </ul>
+        </div>
+      <% } else { %>
+        <a class="btn-getstarted" href="/login">Kirish</a>
+      <% } %>
     </div>
   </header>
 </div>
+
+<style>
+.avatar-circle {
+  width: 32px;
+  height: 32px;
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.dropdown-toggle::after {
+  margin-left: 0.5rem;
+}
+
+.dropdown-menu {
+  min-width: 200px;
+  padding: 0.5rem 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  color: var(--default-color);
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+.btn-link {
+  color: var(--default-color);
+  padding: 0;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: var(--accent-color);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize all dropdowns
+  var dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
+  var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
+    return new bootstrap.Dropdown(dropdownToggleEl);
+  });
+});
+
+async function handleLogout(event) {
+  event.preventDefault();
+  
+  try {
+    const response = await fetch('/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    const data = await response.json();
+    
+    if (data.success) {
+      // Clear localStorage
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      
+      // Redirect to home page
+      window.location.href = '/';
+    } else {
+      throw new Error(data.message || 'Chiqishda xatolik yuz berdi');
+    }
+  } catch (error) {
+    console.error('Logout error:', error);
+    alert(error.message || 'Serverga ulanishda xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.');
+  }
+}
+</script>
