@@ -1,5 +1,7 @@
 const test = require('../config/db')
 const Project = require("../models/project.model")
+const ProjectUpload = require("../models/upload.project.model")
+const path = require("path")
 
 async function mainPage(req, res) {
   try {
@@ -131,36 +133,37 @@ async function submitProject(req, res) {
 }
 
 async function projectDetails(req, res) {
+  let {id} = req.params
   try {
-    let projects = [
-      {
-        id: 1,
-        title: "Tafakkur o'stiruvchi topshiriqlar",
-        category: "Topshiriq",
-        description: "O'quvchilarning tanqidiy tafakkurini rivojlantirishga yo'naltirilgan interaktiv topshiriqlar va mashg'ulotlar. Bu loyiha orqali o'quvchilar murakkab muammolarni hal qilish, tahlil qilish va yechim topish ko'nikmalarini rivojlantirishlari mumkin.",
-        images: ["https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60", "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"],
-        createdAt: new Date('2024-03-15'),
-        files: [
-          {
-            name: "Topshiriqlar to'plami.pdf",
-            url: "/files/tasks.pdf"
-          },
-          {
-            name: "Metodik qo'llanma.docx",
-            url: "/files/guide.docx"
-          }
-        ],
-        author: {
-          name: "Aziza Karimova",
-          title: "Boshlang'ich sinf o'qituvchisi",
-          avatar: "https://randomuser.me/api/portraits/women/1.jpg"
-        }
-      },
-    ];
+    // Get recent project uploads
+    const recentUploads = await ProjectUpload.find({project: id })
+      .populate('project')
+      .populate('submittedBy', 'firstName lastName')
+      .sort({ createdAt: -1 })
+
+      // Format project uploads for display
+    const formattedUploads = recentUploads.map(upload => ({
+      id: upload._id,
+      title: upload.projectName,
+      category: upload.project.title,
+      description: upload.description,
+      images: upload.images,
+      createdAt: upload.createdAt,
+      files: upload.projectFiles.map(filePath => ({
+        name: `Loyiha haqida${path.extname(filePath)}`,
+        url: filePath
+      })),
+      author: {
+        name: `${upload.submittedBy.firstName} ${upload.submittedBy.lastName}`,
+        title: upload.submittedBy.role === 'admin' ? 'Admin' : 'O\'quvchi',
+        avatar: `https://ui-avatars.com/api/?name=${upload.submittedBy.firstName}+${upload.submittedBy.lastName}&background=random`
+      }
+    }));
+
   
     res.render('pages/project-details.ejs', {
       title: 'Loyihalar ro\'yxati',
-      projects: projects,
+      projects: formattedUploads,
       path: '/project-details'
     });
   } catch (error) {

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const User = require('../models/user.model');
 
 exports.auth = async (req, res, next) => {
   try {
@@ -10,9 +11,23 @@ exports.auth = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, config.get('JWT_SECRET'));
-    req.user = decoded;
+    
+    // Find user and attach to request
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(401).json({ message: 'Foydalanuvchi topilmadi' });
+    }
+
+    req.user = {
+      _id: user._id,
+      userId: user._id,
+      email: user.email,
+      role: user.role
+    };
+    
     next();
   } catch (error) {
+    console.error('Auth middleware error:', error);
     res.status(401).json({ message: 'Avtorizatsiya talab qilinadi' });
   }
 };
@@ -29,7 +44,20 @@ exports.checkTestAccess = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, config.get('JWT_SECRET'));
-    req.user = decoded;
+    
+    // Find user and attach to request
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(401).json({ message: 'Foydalanuvchi topilmadi' });
+    }
+
+    req.user = {
+      _id: user._id,
+      userId: user._id,
+      email: user.email,
+      role: user.role
+    };
+    
     next();
   } catch (error) {
     res.status(401).json({ 
@@ -51,7 +79,20 @@ exports.checkProjectAccess = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, config.get('JWT_SECRET'));
-    req.user = decoded;
+    
+    // Find user and attach to request
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(401).json({ message: 'Foydalanuvchi topilmadi' });
+    }
+
+    req.user = {
+      _id: user._id,
+      userId: user._id,
+      email: user.email,
+      role: user.role
+    };
+    
     next();
   } catch (error) {
     res.status(401).json({ 
@@ -79,7 +120,10 @@ exports.requireAuth = (req, res, next) => {
     }
 
     // Add user ID to request
-    req.user = { userId: decoded.userId };
+    req.user = { 
+      _id: decoded.userId,
+      userId: decoded.userId 
+    };
     next();
   } catch (error) {
     console.error('Auth middleware error:', error);

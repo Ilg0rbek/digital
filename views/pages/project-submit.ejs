@@ -6,6 +6,7 @@
     <%- include('../partials/head.ejs') %>
     <link rel="stylesheet" href="css/digital.css" />
     <title><%= title %></title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body class="index-page layout">
     <%- include('../partials/navbar.ejs') %>
@@ -75,14 +76,14 @@
           <div class="col-lg-9" data-aos="fade-left">
             <div class="card border-0 shadow-sm">
               <div class="card-body p-4">
-                <form action="/submit-project" method="POST" enctype="multipart/form-data">
+                <form id="projectUploadForm" enctype="multipart/form-data">
                   <!-- Project Category -->
                   <div class="form-group mb-4">
                     <label class="form-label d-flex align-items-center">
                       <i class="bi bi-folder me-2 text-primary"></i>
                       Loyiha kategoriyasi
                     </label>
-                    <select class="form-select" id="category" name="category" required>
+                    <select class="form-select" id="project" name="project" required>
                       <option value="" selected disabled>Kategoriyani tanlang</option>
                       <% projects.forEach(project => { %>
                         <option value="<%= project._id %>"><%= project.title %></option>
@@ -152,7 +153,7 @@
 
                   <!-- Submit Button -->
                   <div class="text-end">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
                       <i class="bi bi-cloud-upload me-2"></i>
                       Loyihani yuklash
                     </button>
@@ -264,96 +265,163 @@
     </style>
 
     <script>
-      // Image preview functionality
-      const imageDropZone = document.getElementById('imageDropZone');
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('projectUploadForm');
       const imageInput = document.getElementById('images');
+        const fileInput = document.getElementById('projectFiles');
       const imagePreview = document.getElementById('imagePreview');
+        const filePreview = document.getElementById('filePreview');
+        const submitBtn = document.getElementById('submitBtn');
 
+        // Handle image preview
       imageInput.addEventListener('change', function(e) {
-        handleFiles(this.files);
-      });
-
-      imageDropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        imageDropZone.style.borderColor = 'var(--bs-primary)';
-        imageDropZone.style.background = '#f1f3f5';
-      });
-
-      imageDropZone.addEventListener('dragleave', () => {
-        imageDropZone.style.borderColor = '#dee2e6';
-        imageDropZone.style.background = '#f8f9fa';
-      });
-
-      imageDropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        imageDropZone.style.borderColor = '#dee2e6';
-        imageDropZone.style.background = '#f8f9fa';
-        handleFiles(e.dataTransfer.files);
-      });
-
-      function handleFiles(files) {
         imagePreview.innerHTML = '';
-        [...files].forEach(file => {
-          if (file.type.startsWith('image/')) {
+          Array.from(e.target.files).forEach(file => {
             const reader = new FileReader();
             reader.onload = function(e) {
               const div = document.createElement('div');
               div.className = 'position-relative';
               div.innerHTML = `
-                <img src="${e.target.result}" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
-                <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1" onclick="this.parentElement.remove()">
-                  <i class="bi bi-x"></i>
-                </button>
+                <img src="${e.target.result}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
               `;
               imagePreview.appendChild(div);
             }
             reader.readAsDataURL(file);
+          });
+        });
+
+        // Handle file preview
+        fileInput.addEventListener('change', function(e) {
+          filePreview.innerHTML = '';
+          Array.from(e.target.files).forEach(file => {
+            const div = document.createElement('div');
+            div.className = 'alert alert-info d-flex align-items-center';
+            div.innerHTML = `
+              <i class="bi bi-file-earmark me-2"></i>
+              <span>${file.name}</span>
+            `;
+            filePreview.appendChild(div);
+          });
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          try {
+            // Get the token from localStorage
+            const token = localStorage.getItem('token');
+            if (!token) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Avtorizatsiya talab qilinadi',
+                text: 'Iltimos, tizimga kiring',
+                confirmButtonText: 'OK'
+              }).then(() => {
+                window.location.href = '/login';
+      });
+              return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Yuklanmoqda...';
+
+            const formData = new FormData(form);
+            
+            // Log form data for debugging
+            console.log('Form data being sent:', {
+              projectName: formData.get('projectName'),
+              description: formData.get('description'),
+              project: formData.get('project'),
+              images: imageInput.files.length,
+              projectFiles: fileInput.files.length
+            });
+            
+            const response = await fetch('/api/project-uploads', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`
+              },
+              body: formData
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+              throw new Error(result.error || 'Xatolik yuz berdi');
+            }
+
+            if (result.success) {
+              // Show success message
+              Swal.fire({
+                icon: 'success',
+                title: 'Muvaffaqiyatli!',
+                text: 'Loyiha muvaffaqiyatli yuklandi',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '/projects';
+                }
+              });
+            } else {
+              throw new Error(result.error || 'Xatolik yuz berdi');
+            }
+          } catch (error) {
+            console.error('Form submission error:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Xatolik!',
+              text: error.message,
+              confirmButtonText: 'OK'
+            });
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="bi bi-cloud-upload me-2"></i>Loyihani yuklash';
           }
         });
-      }
 
-      // File preview functionality
-      const fileDropZone = document.getElementById('fileDropZone');
-      const fileInput = document.getElementById('projectFiles');
-      const filePreview = document.getElementById('filePreview');
+        // Drag and drop functionality
+        const dropZones = document.querySelectorAll('.upload-zone');
 
-      fileInput.addEventListener('change', function(e) {
-        handleProjectFiles(this.files);
-      });
+        dropZones.forEach(zone => {
+          ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            zone.addEventListener(eventName, preventDefaults, false);
+          });
 
-      fileDropZone.addEventListener('dragover', (e) => {
+          function preventDefaults(e) {
         e.preventDefault();
-        fileDropZone.style.borderColor = 'var(--bs-primary)';
-        fileDropZone.style.background = '#f1f3f5';
+            e.stopPropagation();
+          }
+
+          ['dragenter', 'dragover'].forEach(eventName => {
+            zone.addEventListener(eventName, highlight, false);
+          });
+
+          ['dragleave', 'drop'].forEach(eventName => {
+            zone.addEventListener(eventName, unhighlight, false);
       });
 
-      fileDropZone.addEventListener('dragleave', () => {
-        fileDropZone.style.borderColor = '#dee2e6';
-        fileDropZone.style.background = '#f8f9fa';
-      });
+          function highlight(e) {
+            zone.classList.add('border-primary');
+          }
 
-      fileDropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        fileDropZone.style.borderColor = '#dee2e6';
-        fileDropZone.style.background = '#f8f9fa';
-        handleProjectFiles(e.dataTransfer.files);
-      });
+          function unhighlight(e) {
+            zone.classList.remove('border-primary');
+          }
 
-      function handleProjectFiles(files) {
-        filePreview.innerHTML = '';
-        [...files].forEach(file => {
-          const div = document.createElement('div');
-          div.className = 'alert alert-info d-flex align-items-center mb-2';
-          div.innerHTML = `
-            <i class="bi bi-file-earmark-text me-2"></i>
-            <div class="flex-grow-1">${file.name}</div>
-            <button type="button" class="btn btn-sm btn-outline-danger" onclick="this.parentElement.remove()">
-              <i class="bi bi-x"></i>
-            </button>
-          `;
-          filePreview.appendChild(div);
+          zone.addEventListener('drop', handleDrop, false);
+
+          function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            const input = zone.querySelector('input[type="file"]');
+            
+            input.files = files;
+            const event = new Event('change');
+            input.dispatchEvent(event);
+          }
         });
-      }
+      });
     </script>
   </body>
 </html>

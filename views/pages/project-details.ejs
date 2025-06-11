@@ -53,7 +53,7 @@
               <div class="carousel-inner">
                 <% project.images.forEach((image, index) => { %>
                   <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                    <img src="<%= image %>" class="d-block w-100" alt="<%= project.title %>">
+                    <img src="/<%= image.slice(7) %>" class="d-block w-100" alt="<%= project.title %>">
                   </div>
                 <% }); %>
               </div>
@@ -90,7 +90,7 @@
               <% if (project.files && project.files.length > 0) { %>
               <div class="files-list">
                 <% project.files.forEach(file => { %>
-                <a href="<%= file.url %>" class="file-link" target="_blank">
+                <a href="/<%= file.url.slice(7) %>" download="files" class="file-link" target="_blank">
                   <i class="bi bi-file-earmark"></i>
                   <%= file.name %>
                 </a>
