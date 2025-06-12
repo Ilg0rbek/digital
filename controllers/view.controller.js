@@ -1,4 +1,4 @@
-const test = require('../config/db')
+const Test = require('../models/test.model')
 const Project = require("../models/project.model")
 const ProjectUpload = require("../models/upload.project.model")
 const path = require("path")
@@ -76,7 +76,9 @@ async function testSolutionPage(req, res) {
   try {
     const { type } = req.query;
 
-    const selectedTest = test[type] || {
+    const test = await Test.findOne({ type });
+
+    const selectedTest = test || {
       title: "Test topilmadi",
       description: "Kechirasiz, bu test hozircha mavjud emas",
       questions: []

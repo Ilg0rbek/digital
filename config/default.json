@@ -1,6 +1,6 @@
 {
   "PORT": 8080,
-  "DB_URI": "mongodb://localhost:27017/feruza",
+  "DB_URI": "mongodb+srv://ilgorbekabdumalikov331:Pf46UWsreD20Xpto@cluster0.9q9yhin.mongodb.net/",
   "BASE_URI": "http://localhost:8080",
   "BOT_TOKEN":"8099066550:AAFvnistJ2jvRVDa0nBpRnhTYq3_Ld3BZgA",
   "JWT_SECRET": "your-super-secret-jwt-key",

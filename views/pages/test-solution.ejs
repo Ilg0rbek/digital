@@ -462,8 +462,6 @@
               const currentTotalScore = answers.reduce((sum, score) => {
                 return sum + (score || 0);
               }, 0);
-              console.log('Current Total Score after answering question '+ (questionIndex + 1) + ':', currentTotalScore);
-
               updateStatusGrid();
             });
           });
