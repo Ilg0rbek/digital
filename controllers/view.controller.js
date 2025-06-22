@@ -137,8 +137,12 @@ async function submitProject(req, res) {
 async function projectDetails(req, res) {
   let {id} = req.params
   try {
-    // Get recent project uploads
-    const recentUploads = await ProjectUpload.find({project: id })
+    // Get recent project uploads (only approved ones)
+    const recentUploads = await ProjectUpload.find({
+      project: id,
+      isChecked: true,
+      status: 'approved'
+    })
       .populate('project')
       .populate('submittedBy', 'firstName lastName')
       .sort({ createdAt: -1 })

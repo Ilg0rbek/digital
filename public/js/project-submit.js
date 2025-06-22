@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(data.error || 'Loyiha yuklashda xatolik yuz berdi');
             }
 
-            // Show success message
-            alert('Loyiha muvaffaqiyatli yuklandi!');
+            // Show success message with approval notice
+            alert('Loyiha muvaffaqiyatli yuklandi! Admin tasdiqlashini kuting. Telegram orqali xabar beramiz.');
             
             // Reset form
             form.reset();

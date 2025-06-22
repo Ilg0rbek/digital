@@ -24,6 +24,10 @@ const projectUploadSchema = new mongoose.Schema({
         enum: ['pending', 'approved', 'rejected'],
         default: 'pending'
     },
+    isChecked: {
+        type: Boolean,
+        default: false
+    },
     submittedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

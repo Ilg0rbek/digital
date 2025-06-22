@@ -6,6 +6,9 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 
+// Initialize Telegram bot service
+require('./services/telegramBot');
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

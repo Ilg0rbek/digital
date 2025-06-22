@@ -22,7 +22,9 @@ exports.auth = async (req, res, next) => {
       _id: user._id,
       userId: user._id,
       email: user.email,
-      role: user.role
+      role: user.role,
+      firstName: user.firstName,
+      lastName: user.lastName
     };
     
     next();
@@ -55,7 +57,9 @@ exports.checkTestAccess = async (req, res, next) => {
       _id: user._id,
       userId: user._id,
       email: user.email,
-      role: user.role
+      role: user.role,
+      firstName: user.firstName,
+      lastName: user.lastName
     };
     
     next();
@@ -90,7 +94,9 @@ exports.checkProjectAccess = async (req, res, next) => {
       _id: user._id,
       userId: user._id,
       email: user.email,
-      role: user.role
+      role: user.role,
+      firstName: user.firstName,
+      lastName: user.lastName
     };
     
     next();

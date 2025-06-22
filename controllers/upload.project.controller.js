@@ -1,6 +1,7 @@
 const ProjectUpload = require('../models/upload.project.model');
 const path = require('path');
 const fs = require('fs');
+const { sendProjectApprovalRequest } = require('../services/telegramBot');
 
 // Create new project upload
 exports.createProjectUpload = async (req, res) => {
@@ -46,9 +47,19 @@ exports.createProjectUpload = async (req, res) => {
         const savedUpload = await projectUpload.save();
         console.log('Project upload saved:', savedUpload);
 
+        // Send Telegram notification for approval
+        try {
+            await sendProjectApprovalRequest(savedUpload);
+            console.log('Telegram notification sent for project approval');
+        } catch (telegramError) {
+            console.error('Failed to send Telegram notification:', telegramError);
+            // Don't fail the request if Telegram fails
+        }
+
         res.status(201).json({ 
             success: true, 
-            data: savedUpload 
+            data: savedUpload,
+            message: 'Loyiha muvaffaqiyatli yuklandi. Admin tasdiqlashini kuting.'
         });
     } catch (error) {
         console.error('Upload error:', error);
@@ -60,12 +71,22 @@ exports.createProjectUpload = async (req, res) => {
     }
 };
 
-// Get all project uploads
+// Get all project uploads (only approved ones for public view)
 exports.getAllProjectUploads = async (req, res) => {
     try {
-        const projectUploads = await ProjectUpload.find()
+        const query = { isChecked: true, status: 'approved' };
+        
+        // If admin is requesting, show all projects
+        if (req.user && req.user.role === 'admin') {
+            delete query.isChecked;
+            delete query.status;
+        }
+
+        const projectUploads = await ProjectUpload.find(query)
             .populate('project')
-            .populate('submittedBy', 'name email');
+            .populate('submittedBy', 'name email')
+            .sort({ createdAt: -1 });
+            
         res.status(200).json({ success: true, data: projectUploads });
     } catch (error) {
         res.status(400).json({ success: false, error: error.message });
