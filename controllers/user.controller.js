@@ -30,17 +30,15 @@ exports.register = async (req, res) => {
       { expiresIn: config.get('JWT_EXPIRES_IN') }
     );
 
-    res.status(201).json({
-      message: 'Ro\'yxatdan o\'tish muvaffaqiyatli yakunlandi',
-      token,
-      user: {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        role: user.role
-      }
+    // Set token as cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
     });
+
+    // Redirect to home page
+    res.redirect('/');
   } catch (error) {
     res.status(500).json({ message: 'Server xatosi', error: error.message });
   }

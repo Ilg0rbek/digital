@@ -84,12 +84,26 @@
 </style>
 
 <script>
+// Wait for both DOM and Bootstrap to be ready
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize all dropdowns
-  var dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
-  var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
-    return new bootstrap.Dropdown(dropdownToggleEl);
-  });
+  // Check if Bootstrap is available
+  if (typeof bootstrap !== 'undefined') {
+    // Initialize all dropdowns
+    var dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
+    var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
+      return new bootstrap.Dropdown(dropdownToggleEl);
+    });
+  } else {
+    // If Bootstrap is not loaded yet, wait a bit and try again
+    setTimeout(function() {
+      if (typeof bootstrap !== 'undefined') {
+        var dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
+        var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
+          return new bootstrap.Dropdown(dropdownToggleEl);
+        });
+      }
+    }, 100);
+  }
 });
 
 async function handleLogout(event) {
