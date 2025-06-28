@@ -29,9 +29,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
-                body: formData
+                body: formData 
             });
 
+            // Check if response is JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                // If not JSON, it's probably an HTML error page
+                const text = await response.text();
+                console.error('Server returned HTML instead of JSON:', text);
+                throw new Error('Server xatoligi. Iltimos, qaytadan urinib ko\'ring.');
+            }
+            
             const data = await response.json();
 
             if (!response.ok) {

@@ -39,10 +39,36 @@ app.use('/', indexRoutes);
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error('Error:', err);
-    res.status(500).json({
+    
+    // Check if this is an API request
+    if (req.path.startsWith('/api/')) {
+        return res.status(500).json({
+            success: false,
+            error: err.message,
+            stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+        });
+    }
+    
+    // For non-API requests, render error page
+    res.status(500).render('error', {
+        title: 'Xatolik',
+        message: err.message
+    });
+});
+
+// 404 handler for API routes
+app.use('/api/*', (req, res) => {
+    res.status(404).json({
         success: false,
-        error: err.message,
-        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+        error: 'API endpoint topilmadi'
+    });
+});
+
+// 404 handler for other routes
+app.use('*', (req, res) => {
+    res.status(404).render('error', {
+        title: 'Sahifa topilmadi',
+        message: 'Siz qidirayotgan sahifa mavjud emas'
     });
 });
 
