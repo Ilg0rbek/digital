@@ -10,8 +10,8 @@ const methodOverride = require('method-override');
 require('./services/telegramBot');
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 

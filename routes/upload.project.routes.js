@@ -30,7 +30,9 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 50 * 1024 * 1024 // 50MB max file size
+        fileSize: 100 * 1024 * 1024, // 100MB max file size
+        fieldSize: 100 * 1024 * 1024, // 100MB max field size
+        files: 15 // Total files (10 images + 5 project files)
     },
     fileFilter: function (req, file, cb) {
         // Allow images and specific document types
@@ -70,18 +72,51 @@ const projectsDir = path.join(uploadsDir, 'projects');
     }
 });
 
+// Error handling middleware for multer
+const handleMulterError = (err, req, res, next) => {
+    if (err instanceof multer.MulterError) {
+        if (err.code === 'LIMIT_FILE_SIZE') {
+            return res.status(413).json({
+                success: false,
+                error: 'Fayl hajmi juda katta. Maksimal hajm: 100MB'
+            });
+        } else if (err.code === 'LIMIT_FILE_COUNT') {
+            return res.status(413).json({
+                success: false,
+                error: 'Juda ko\'p fayl yuklandi. Maksimal: 10 ta rasm, 5 ta loyiha fayli'
+            });
+        } else if (err.code === 'LIMIT_FIELD_COUNT') {
+            return res.status(413).json({
+                success: false,
+                error: 'Juda ko\'p maydon yuklandi'
+            });
+        } else {
+            return res.status(400).json({
+                success: false,
+                error: `Fayl yuklash xatosi: ${err.message}`
+            });
+        }
+    } else if (err) {
+        return res.status(400).json({
+            success: false,
+            error: err.message
+        });
+    }
+    next();
+};
+
 // Routes
 router.post('/', auth, upload.fields([
     { name: 'images', maxCount: 10 },
     { name: 'projectFiles', maxCount: 5 }
-]), createProjectUpload);
+]), handleMulterError, createProjectUpload);
 
 router.get('/', auth, getAllProjectUploads);
 router.get('/:id', auth, getProjectUploadById);
 router.put('/:id', auth, upload.fields([
     { name: 'images', maxCount: 10 },
     { name: 'projectFiles', maxCount: 5 }
-]), updateProjectUpload);
+]), handleMulterError, updateProjectUpload);
 router.delete('/:id', auth, deleteProjectUpload);
 router.get('/project/:projectId', auth, getProjectUploadsByProject);
 

@@ -2,8 +2,27 @@ const TelegramBot = require('node-telegram-bot-api');
 const ProjectUpload = require('../models/upload.project.model');
 const config = require("config")
 
-// Initialize bot
-const bot = new TelegramBot(config.get("BOT_TOKEN"), { polling: true });
+// Initialize bot with better error handling
+let bot;
+try {
+    bot = new TelegramBot(config.get("BOT_TOKEN"), { 
+        polling: {
+            timeout: 10,
+            limit: 100,
+            retryTimeout: 5000
+        }
+    });
+} catch (error) {
+    console.error('❌ Failed to initialize Telegram bot:', error.message);
+    // Create a dummy bot object to prevent crashes
+    bot = {
+        sendMessage: () => Promise.resolve({ message_id: Date.now() }),
+        sendDocument: () => Promise.resolve(),
+        sendPhoto: () => Promise.resolve(),
+        on: () => {},
+        getMe: () => Promise.reject(new Error('Bot not initialized'))
+    };
+}
 
 // ===== CONFIGURATION =====
 // Choose one of these methods:
@@ -275,12 +294,17 @@ Loyiha saytda ko'rinmaydi.
 
 // Handle bot errors
 bot.on('error', (error) => {
-    console.error('❌ Telegram bot error:', error);
+    console.error('❌ Telegram bot error:', error.message);
 });
 
 // Handle polling errors
 bot.on('polling_error', (error) => {
-    console.error('❌ Telegram bot polling error:', error);
+    if (error.code === 'ETELEGRAM' && error.response?.body?.error_code === 409) {
+        console.log('⚠️ Telegram bot polling conflict detected. This is normal if multiple instances are running.');
+        console.log('📝 The bot will continue to work for sending messages.');
+    } else {
+        console.error('❌ Telegram bot polling error:', error.message);
+    }
 });
 
 // Test bot connection on startup
@@ -297,8 +321,9 @@ bot.getMe().then((botInfo) => {
     console.log('   (Channel ID will be a negative number like -1001234567890)');
     console.log('');
 }).catch((error) => {
-    console.error('❌ Failed to connect to Telegram bot:', error);
+    console.error('❌ Failed to connect to Telegram bot:', error.message);
     console.error('Check your BOT_TOKEN in config/default.json');
+    console.log('📝 Bot will continue to work but Telegram notifications will be disabled');
 });
 
 module.exports = {
