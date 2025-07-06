@@ -276,13 +276,16 @@
         // Handle image preview
       imageInput.addEventListener('change', function(e) {
         imagePreview.innerHTML = '';
-          Array.from(e.target.files).forEach(file => {
+          Array.from(e.target.files).forEach((file, index) => {
             const reader = new FileReader();
             reader.onload = function(e) {
               const div = document.createElement('div');
               div.className = 'position-relative';
               div.innerHTML = `
                 <img src="${e.target.result}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                <button type="button" class="btn btn-danger btn-sm position-absolute" style="top: 5px; right: 5px;" onclick="removeImage(${index})">
+                  <i class="bi bi-x"></i>
+                </button>
               `;
               imagePreview.appendChild(div);
             }
@@ -293,12 +296,17 @@
         // Handle file preview
         fileInput.addEventListener('change', function(e) {
           filePreview.innerHTML = '';
-          Array.from(e.target.files).forEach(file => {
+          Array.from(e.target.files).forEach((file, index) => {
             const div = document.createElement('div');
-            div.className = 'alert alert-info d-flex align-items-center';
+            div.className = 'alert alert-info d-flex align-items-center justify-content-between';
             div.innerHTML = `
-              <i class="bi bi-file-earmark me-2"></i>
-              <span>${file.name}</span>
+              <div>
+                <i class="bi bi-file-earmark me-2"></i>
+                <span>${file.name}</span>
+              </div>
+              <button type="button" class="btn btn-danger btn-sm" onclick="removeFile(${index})">
+                <i class="bi bi-x"></i>
+              </button>
             `;
             filePreview.appendChild(div);
           });
@@ -422,6 +430,38 @@
           }
         });
       });
+
+      // Remove image function
+      function removeImage(index) {
+        const imageInput = document.getElementById('images');
+        const files = Array.from(imageInput.files);
+        files.splice(index, 1);
+        
+        // Create new FileList-like object
+        const dt = new DataTransfer();
+        files.forEach(file => dt.items.add(file));
+        imageInput.files = dt.files;
+        
+        // Re-render preview
+        const event = new Event('change');
+        imageInput.dispatchEvent(event);
+      }
+
+      // Remove file function
+      function removeFile(index) {
+        const fileInput = document.getElementById('projectFiles');
+        const files = Array.from(fileInput.files);
+        files.splice(index, 1);
+        
+        // Create new FileList-like object
+        const dt = new DataTransfer();
+        files.forEach(file => dt.items.add(file));
+        fileInput.files = dt.files;
+        
+        // Re-render preview
+        const event = new Event('change');
+        fileInput.dispatchEvent(event);
+      }
     </script>
   </body>
 </html>

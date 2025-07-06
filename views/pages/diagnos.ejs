@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('../partials/head.ejs') %>
     <link rel="stylesheet" href="css/prof.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <title><%= title %></title>
     <style>
@@ -131,50 +132,50 @@
                 class="col-xl-3 col-md-6"
                
               >
-                <a href="/test-solution?type=kreativlik" class="feature-box orange">
+                <div class="feature-box orange test-card" data-type="kreativlik">
                   <i class="bi bi-award"></i>
                   <h4>Kreativlik</h4>
                   <p>Kreativ fikirlash gobilyatini baholash</p>
-                </a>
+                </div>
               </div>
 
               <div
                 class="col-xl-3 col-md-6"
               
               >
-                <a href="/test-solution?type=noodatiy" class="feature-box blue">
+                <div class="feature-box blue test-card" data-type="noodatiy">
                   <i class="bi bi-patch-check"></i>
                   <h4>Noodatiy fikirlash</h4>
                   <p>
                     Pedagogik jarayonga innavotsion yondashuvlarni tekshirish
 
                   </p>
-                </a>
+                </div>
               </div>
 
               <div
                 class="col-xl-3 col-md-6"
              
               >
-                <a href="/test-solution?type=raqamli" class="feature-box green">
+                <div class="feature-box green test-card" data-type="raqamli">
                   <i class="bi bi-sunrise"></i>
                   <h4>Raqamli pedagogika</h4>
                   <p>
                     Raqamli kompetensiyalarni baholash
                   </p>
-                </a>
+                </div>
               </div>
 
               <div
                 class="col-xl-3 col-md-6"
                
               >
-                <a href="/test-solution?type=situation" class="feature-box red">
+                <div class="feature-box red test-card" data-type="situation">
                   <i class="bi bi-shield-check"></i>
                   <h4>Situation</h4>
                   <p> Standart vaziyatlarga noyob yechimlar topish qobilyatini
                     baholash</p>
-                </a>
+                </div>
               </div>
             </div>
           </div>
@@ -190,5 +191,47 @@
     ></a>
 
     <%- include('../partials/footer.ejs') %>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Test cardlarini tanlash
+        const testCards = document.querySelectorAll('.test-card');
+        
+        testCards.forEach(card => {
+          card.addEventListener('click', function() {
+            const testType = this.getAttribute('data-type');
+            
+            // Tizimga kirganligini tekshirish
+            checkAuthAndRedirect(testType);
+          });
+        });
+        
+        function checkAuthAndRedirect(testType) {
+          // localStorage dan token ni olish
+          const token = localStorage.getItem('token');
+          
+          if (!token) {
+            // Tizimga kirmagan bo'lsa xabar ko'rsatish
+            showLoginMessage();
+          } else {
+            // Tizimga kirgan bo'lsa test sahifasiga o'tish
+            window.location.href = `/test-solution?type=${testType}`;
+          }
+        }
+        
+        function showLoginMessage() {
+          // SweetAlert ko'rsatish
+          Swal.fire({
+            title: 'Tizimga kirish kerak!',
+            text: 'Test ishlash uchun tizimga kiring',
+            icon: 'warning',
+            confirmButtonText: 'Tushundim',
+            confirmButtonColor: '#3085d6'
+          });
+        }
+        
+
+      });
+    </script>
   </body>
 </html>

@@ -94,6 +94,7 @@ async function testSolutionPage(req, res) {
     });
   } catch (error) {
     console.log(error.message);
+    res.redirect('/diagnos');
   }
 }
 

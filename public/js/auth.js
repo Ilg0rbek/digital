@@ -41,7 +41,13 @@ async function handleLogin(event) {
     window.location.href = '/';
   } catch (error) {
     console.error('Login error:', error);
-    alert(error.message || 'Serverga ulanishda xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.');
+    Swal.fire({
+      title: 'Xatolik!',
+      text: error.message || 'Serverga ulanishda xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.',
+      icon: 'error',
+      confirmButtonText: 'Tushundim',
+      confirmButtonColor: '#d33'
+    });
   } finally {
     // Reset button state
     button.disabled = false;
@@ -63,7 +69,13 @@ async function handleRegister(event) {
   const buttonText = button.querySelector('.button-text');
 
   if (password !== confirmPassword) {
-    alert('Parollar mos kelmadi');
+    Swal.fire({
+      title: 'Xatolik!',
+      text: 'Parollar mos kelmadi',
+      icon: 'error',
+      confirmButtonText: 'Tushundim',
+      confirmButtonColor: '#d33'
+    });
     return;
   }
 
@@ -100,7 +112,13 @@ async function handleRegister(event) {
     window.location.href = '/';
   } catch (error) {
     console.error('Register error:', error);
-    alert(error.message || 'Serverga ulanishda xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.');
+    Swal.fire({
+      title: 'Xatolik!',
+      text: error.message || 'Serverga ulanishda xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.',
+      icon: 'error',
+      confirmButtonText: 'Tushundim',
+      confirmButtonColor: '#d33'
+    });
   } finally {
     // Reset button state
     button.disabled = false;

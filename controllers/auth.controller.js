@@ -37,7 +37,23 @@ exports.register = async (req, res, next) => {
       maxAge: 24 * 60 * 60 * 1000 // 24 hours
     });
 
-    // Redirect to home page
+    // Check if it's an AJAX request
+    if (req.headers.accept && req.headers.accept.includes('application/json')) {
+      return res.json({
+        success: true,
+        message: 'Muvaffaqiyatli ro\'yxatdan o\'tildi',
+        user: {
+          _id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role
+        },
+        token: token
+      });
+    }
+
+    // Redirect to home page for regular requests
     res.redirect('/');
   } catch (error) {
     next(error);
@@ -75,7 +91,23 @@ exports.login = async (req, res, next) => {
       maxAge: 24 * 60 * 60 * 1000 // 24 hours
     });
 
-    // Redirect to home page
+    // Check if it's an AJAX request
+    if (req.headers.accept && req.headers.accept.includes('application/json')) {
+      return res.json({
+        success: true,
+        message: 'Muvaffaqiyatli kirildi',
+        user: {
+          _id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role
+        },
+        token: token
+      });
+    }
+
+    // Redirect to home page for regular requests
     res.redirect('/');
   } catch (error) {
     next(error);

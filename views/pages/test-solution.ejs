@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('../partials/head.ejs') %>
     <link rel="stylesheet" href="/css/prof.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <title><%= title %></title>
     <style>
@@ -357,6 +358,24 @@
     </a>
   </body>
    <script>
+      // Auth tekshirish
+      document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+          Swal.fire({
+            title: 'Tizimga kirish kerak!',
+            text: 'Test ishlash uchun tizimga kiring',
+            icon: 'warning',
+            confirmButtonText: 'Tushundim',
+            confirmButtonColor: '#3085d6'
+          }).then(() => {
+            window.location.href = '/diagnos';
+          });
+          return;
+        }
+      });
+      
       let isTestStarted = true;
       let hasUnsavedChanges = false;
 
@@ -525,7 +544,7 @@
           document.getElementById('totalScoreText').textContent = 'Umumiy bal: ' + totalScore;
 
           // Send results to server
-          fetch('/submit-test', {
+          fetch('/api/submit-test', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

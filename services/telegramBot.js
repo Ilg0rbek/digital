@@ -1,6 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 const ProjectUpload = require('../models/upload.project.model');
 const config = require("config")
+const path = require('path');
+const fs = require('fs');
 
 // Initialize bot with better error handling
 let bot;
@@ -29,7 +31,7 @@ try {
 
 // Method 1: Send to channel (recommended)
 // Get channel ID by forwarding a message from your channel to @userinfobot
-const TELEGRAM_CHANNEL_ID = '-1002699669111'; // Replace with your channel ID (negative number)
+const TELEGRAM_CHANNEL_ID = config.get("CHANNEL_ID"); // Replace with your channel ID (negative number)
 
 // Method 2: Send to your personal chat
 // const TELEGRAM_CHAT_ID = '123456789'; // Replace with your chat ID from @userinfobot
@@ -53,20 +55,21 @@ const sendProjectApprovalRequest = async (projectUpload) => {
         if (projectUpload.projectFiles.length > 0) {
             fileLinks = '\n📁 *Loyiha fayllari:*\n';
             projectUpload.projectFiles.forEach((file, index) => {
-                const fileName = file.split('/').pop(); // Get full filename from path
-                const fileUrl = `${config.get('BASE_URI')}/${file}`;
-                fileLinks += `${index + 1}. [${fileName}](${fileUrl})\n`;
+                // Extract clean filename from path
+                const fileName = path.basename(file);
+                const fileUrl = `${config.get('BASE_URI')}/${file.slice(7)}`;
+                fileLinks += `${index + 1}. [Loyihaning ${index + 1} - fayli](${fileUrl})\n`;
             });
         }
-
         // Build image links
         let imageLinks = '';
         if (projectUpload.images.length > 0) {
-            imageLinks = '\n🖼️ *Loyiha rasmlari:*\n';
+            imageLinks = '🖼️ *Loyiha rasmlari:*\n';
             projectUpload.images.forEach((image, index) => {
-                const imageName = image.split('/').pop(); // Get full filename from path
-                const imageUrl = `${config.get('BASE_URI')}/${image}`;
-                imageLinks += `${index + 1}. [${imageName}](${imageUrl})\n`;
+                // Extract clean filename from path
+                const imageName = path.basename(image);
+                const imageUrl = `${config.get('BASE_URI')}/${image.slice(7)}`;
+                imageLinks += `${index + 1}. [Loyihaning ${index + 1} - rasmi](${imageUrl})\n`;
             });
         }
         
@@ -84,14 +87,9 @@ const sendProjectApprovalRequest = async (projectUpload) => {
 🆕 Yangi loyiha yuklandi!
 
 📝 *Loyiha nomi:* ${projectUpload.projectName}
-📄 *Tavsif:* ${projectUpload.description}
-👤 *Yuboruvchi:* ${sender}
+👨🏻‍🎓 *Yuboruvchi:* ${sender}
 📨 *Email:* ${projectUpload.submittedBy.email}
 📅 *Sana:* ${new Date(projectUpload.submittedAt).toLocaleString('uz-UZ')}
-
-${projectUpload.images.length > 0 ? `🖼️ Rasmlar soni: ${projectUpload.images.length} ta` : ''}
-${projectUpload.projectFiles.length > 0 ? `📁 Fayllar soni: ${projectUpload.projectFiles.length} ta` : ''}
-
 ${fileLinks}
 ${imageLinks}
 
@@ -112,35 +110,104 @@ Loyihani tasdiqlash yoki rad etish uchun quyidagi tugmalardan birini bosing:
         // Try to send to configured destination
         if (TELEGRAM_CHANNEL_ID) {
             try {
-                result = await bot.sendMessage(TELEGRAM_CHANNEL_ID, message, {
-                    reply_markup: inlineKeyboard,
-                    parse_mode: 'Markdown',
-                    disable_web_page_preview: true
-                });
-                console.log('✅ Message sent to channel successfully');
-
-                // Send project files as documents
+                console.log('🔄 Attempting to send to Telegram channel...');
+                console.log('📊 Files count:', projectUpload.projectFiles.length);
+                console.log('🖼️ Images count:', projectUpload.images.length);
+                
+                // Prepare media group for files and images
+                const mediaGroup = [];
+                let isFirstItem = true;
+                
+                // Add project files to media group
                 for (const file of projectUpload.projectFiles) {
-                    const fileUrl = `${config.get('BASE_URI')}/${file}`;
                     try {
-                        await bot.sendDocument(TELEGRAM_CHANNEL_ID, fileUrl, {
-                            caption: 'Loyiha fayli',
-                        });
+                        const filePath = path.join(process.cwd(), file);
+                        const fileName = path.basename(file);
+                        
+                        if (!fs.existsSync(filePath)) {
+                            console.error(`❌ File not found: ${filePath}`);
+                            continue;
+                        }
+                        
+                        const mediaItem = {
+                            type: 'document',
+                            media: filePath
+                        };
+                        
+                        // Add caption and buttons only to first item
+                        if (isFirstItem) {
+                            mediaItem.caption = message;
+                            mediaItem.parse_mode = 'Markdown';
+                            mediaItem.reply_markup = inlineKeyboard;
+                            isFirstItem = false;
+                        }
+                        
+                        mediaGroup.push(mediaItem);
+                        console.log(`✅ File added to media group: ${fileName}`);
                     } catch (err) {
-                        console.error('❌ Failed to send document:', fileUrl, err.message);
+                        console.error('❌ Failed to add document to media group:', file, err.message);
                     }
                 }
 
-                // Send images as photos
+                // Add images to media group
                 for (const image of projectUpload.images) {
-                    const imageUrl = `${config.get('BASE_URI')}/${image}`;
                     try {
-                        await bot.sendPhoto(TELEGRAM_CHANNEL_ID, imageUrl, {
-                            caption: 'Loyiha rasmi',
-                        });
+                        const imagePath = path.join(process.cwd(), image);
+                        const imageName = path.basename(image);
+                        
+                        if (!fs.existsSync(imagePath)) {
+                            console.error(`❌ Image not found: ${imagePath}`);
+                            continue;
+                        }
+                        
+                        const mediaItem = {
+                            type: 'photo',
+                            media: imagePath
+                        };
+                        
+                        // Add caption and buttons only to first item
+                        if (isFirstItem) {
+                            mediaItem.caption = message;
+                            mediaItem.parse_mode = 'Markdown';
+                            mediaItem.reply_markup = inlineKeyboard;
+                            isFirstItem = false;
+                        }
+                        
+                        mediaGroup.push(mediaItem);
+                        console.log(`✅ Image added to media group: ${imageName}`);
                     } catch (err) {
-                        console.error('❌ Failed to send photo:', imageUrl, err.message);
+                        console.error('❌ Failed to add photo to media group:', image, err.message);
                     }
+                }
+
+                console.log('📦 Media group prepared with', mediaGroup.length, 'items');
+
+                // Send media group if we have files/images
+                if (mediaGroup.length > 0) {
+                    try {
+                        const mediaResult = await bot.sendMediaGroup(TELEGRAM_CHANNEL_ID, mediaGroup);
+                        console.log('✅ Media group sent to channel successfully');
+                        // Use the first message ID from media group
+                        result = { message_id: mediaResult[0].message_id };
+                    } catch (mediaError) {
+                        console.error('❌ Media group send failed:', mediaError.message);
+                        // Fallback to regular message
+                        console.log('🔄 Falling back to regular message...');
+                        result = await bot.sendMessage(TELEGRAM_CHANNEL_ID, message, {
+                            reply_markup: inlineKeyboard,
+                            parse_mode: 'Markdown',
+                            disable_web_page_preview: true
+                        });
+                        console.log('✅ Fallback message sent successfully');
+                    }
+                } else {
+                    // If no files, send just the message
+                    result = await bot.sendMessage(TELEGRAM_CHANNEL_ID, message, {
+                        reply_markup: inlineKeyboard,
+                        parse_mode: 'Markdown',
+                        disable_web_page_preview: true
+                    });
+                    console.log('✅ Message sent to channel successfully (no files)');
                 }
 
             } catch (channelError) {

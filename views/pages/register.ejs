@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('../partials/head.ejs') %>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Ro'yxatdan o'tish - <%= title %></title>
   </head>
   <body class="auth-page">
@@ -95,7 +96,13 @@
         
         if (password !== confirmPassword) {
           e.preventDefault();
-          alert('Parollar mos kelmadi');
+          Swal.fire({
+            title: 'Xatolik!',
+            text: 'Parollar mos kelmadi',
+            icon: 'error',
+            confirmButtonText: 'Tushundim',
+            confirmButtonColor: '#d33'
+          });
           return false;
         }
       });

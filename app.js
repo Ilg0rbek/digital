@@ -34,7 +34,10 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Routes
 const indexRoutes = require('./routes/index.routes');
+const testRoutes = require('./routes/test.routes');
+
 app.use('/', indexRoutes);
+app.use('/api', testRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

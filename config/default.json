@@ -1,8 +1,9 @@
 {
   "PORT": 8080,
   "DB_URI": "mongodb+srv://ilgorbekabdumalikov331:Pf46UWsreD20Xpto@cluster0.9q9yhin.mongodb.net/",
-  "BASE_URI": "http://localhost:8080",
-  "BOT_TOKEN":"8099066550:AAFvnistJ2jvRVDa0nBpRnhTYq3_Ld3BZgA",
+  "BASE_URI": "https://raqamli-ijod.uz",
+  "BOT_TOKEN":"7484614069:AAEgyrSH8ue9Izr7Q7MMbb6JLSMaLbna1j0",
+  "CHANNEL_ID": "-1002768030480",
   "JWT_SECRET": "your-super-secret-jwt-key",
   "JWT_EXPIRES_IN": "24h"
 }
