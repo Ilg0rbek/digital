@@ -62,6 +62,32 @@
   padding: 1rem;
 }
 
+/* Rangli digital cardlar (to'qroq va biroz ko'proq effekt) */
+.cards-grid .digital-card:nth-child(1) {
+  background: linear-gradient(135deg, #ffe5e5 60%, #ffb3b3 100%);
+  box-shadow: 0 4px 24px 0 rgba(255, 179, 179, 0.10);
+}
+.cards-grid .digital-card:nth-child(2) {
+  background: linear-gradient(135deg, #e0f2f7 60%, #7de3f7 100%);
+  box-shadow: 0 4px 24px 0 rgba(125, 227, 247, 0.10);
+}
+.cards-grid .digital-card:nth-child(3) {
+  background: linear-gradient(135deg, #e3ffe3 60%, #7dffb3 100%);
+  box-shadow: 0 4px 24px 0 rgba(125, 255, 179, 0.10);
+}
+.cards-grid .digital-card:nth-child(4) {
+  background: linear-gradient(135deg, #fffbe3 60%, #ffe97d 100%);
+  box-shadow: 0 4px 24px 0 rgba(255, 233, 125, 0.10);
+}
+.cards-grid .digital-card:nth-child(5) {
+  background: linear-gradient(135deg, #e3e3ff 60%, #7d7dff 100%);
+  box-shadow: 0 4px 24px 0 rgba(125, 125, 255, 0.10);
+}
+.cards-grid .digital-card:nth-child(6) {
+  background: linear-gradient(135deg, #ffe3fa 60%, #ff7ddc 100%);
+  box-shadow: 0 4px 24px 0 rgba(255, 125, 220, 0.10);
+}
+
 /* Digital Cards */
 .digital-card {
   background: white;
